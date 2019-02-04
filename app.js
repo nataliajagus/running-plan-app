@@ -3,15 +3,21 @@
 
 let numberOfRounds = 2;
 let runSec = 2;
-let walkSec = 3;
+let walkSec = 2;
 
 // DOM ELEMENTS
 
 let wrapper = document.getElementById("wrapper");
 let start = document.getElementById("start");
+let stop = document.getElementById("stop");
+let test = document.getElementById("test");
 let container = document.createElement("DIV");
 container.classList.add("container");
 wrapper.appendChild(container);
+
+let isRunning = false;
+let isWalking = false;
+
 
 // FUNCTION FOR CONVERTING SECONDS TO MINUTES
 
@@ -32,42 +38,63 @@ function convertSeconds(s) {
 
 // EXCERCISE FUNCTION
 
+let runCounter = 0;
+let runTimeLeft = runSec;
+let walkCounter = 0;
+let walkTimeLeft = walkSec;
+let isWalkingStopped = false;
+
 function excercise() {
 
-    function run() {
-        let runCounter = 0;
-        let runTimeLeft = runSec;
+    stop.addEventListener("click", function() {
+        clearInterval(excercise);
+    })
+
     
-        container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
-    
-        
-        runTimer = () => {
-            runCounter++;
+    container.style.opacity = "1";
+
+        function run() {
+            isRunning = true; 
+            isWalking = false;
             container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
-    
-            if (runCounter == runTimeLeft) {
-                clearInterval(running);
-                runCounter = 0;
+        
+            runTimer = () => {
+                runCounter++;
+                container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
+        
+                if (runCounter == runTimeLeft && isRunning) {
+                    clearInterval(running);
+                    runCounter = 0;
+                    setTimeout(walk, 1000);
+
+                }
             }
+
+
+        
+            let running = setInterval(runTimer, 1000);
+        
+            
+            stop.addEventListener("click", function() {
+                clearInterval(running);
+            })
+
+        
         }
     
-        let running = setInterval(runTimer, 1000);
-    
-        setTimeout(walk, runSec * 1000 + 1000);
-    
-    }
+        run();
 
-    run();
-    
     
     function walk() {
-        let walkCounter = 0;
-        let walkTimeLeft = walkSec;
-    
+
+        isWalking = true;
+        isRunning = false;
+
         container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
     
         
         walkTimer = () => {
+            
             walkCounter++;
             container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
     
@@ -75,33 +102,60 @@ function excercise() {
                 clearInterval(walking);
                 walkCounter = 0;
                 numberOfRounds = numberOfRounds - 1;
-                console.log(numberOfRounds);
+
 
                 if (numberOfRounds == 0) {
                     clearInterval(excercise)
                 }
 
             }
+
         }
+
+        stop.addEventListener("click", function() {
+            if (isWalking) {
+                clearInterval(walking);
+            }
+            isWalkingStopped = true;
+        })
+
+        start.addEventListener("click", function() {
+            if (isWalkingStopped && isWalking) {
+                walk();
+            }
+            isWalkingStopped = false;
+        
+        })
     
         let walking = setInterval(walkTimer, 1000);
        
     }
 
     let excercise = setInterval(run, (runSec + walkSec) * 1000 + 2000);
+                    if (numberOfRounds == 0) {
+                    clearInterval(excercise)
+                    console.log("excercise cleared!");
+                }
     
 
 }
 
 // START EXCERCISE 
 
+
 start.addEventListener("click", function() {
-    excercise();
+    if (isWalkingStopped) {
+        setTimeout(excercise, walkTimeLeft * 1000);
+    } else {
+        excercise();
+    }
+    stop.disabled = false;
+    start.disabled = true;
 })
 
 
-
-
-
-
+stop.addEventListener("click", function() {
+    start.disabled = false;
+    stop.disabled = true;
+})
 
