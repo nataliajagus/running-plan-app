@@ -1,9 +1,9 @@
 
 // CONFIG
 
-let numberOfRounds = 2;
+let numberOfRounds = 5;
 let runSec = 2;
-let walkSec = 2;
+let walkSec = 4;
 
 // DOM ELEMENTS
 
@@ -14,10 +14,6 @@ let test = document.getElementById("test");
 let container = document.createElement("DIV");
 container.classList.add("container");
 wrapper.appendChild(container);
-
-let isRunning = false;
-let isWalking = false;
-
 
 // FUNCTION FOR CONVERTING SECONDS TO MINUTES
 
@@ -42,41 +38,43 @@ let runCounter = 0;
 let runTimeLeft = runSec;
 let walkCounter = 0;
 let walkTimeLeft = walkSec;
-let isWalkingStopped = false;
+
 
 function excercise() {
 
+    console.log(numberOfRounds);
+    stop.disabled = false;
+
     stop.addEventListener("click", function() {
         clearInterval(excercise);
+        console.log('e');
     })
-
     
-    container.style.opacity = "1";
+    //container.style.opacity = "1";
+
 
         function run() {
-            isRunning = true; 
-            isWalking = false;
             container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
         
             runTimer = () => {
                 runCounter++;
                 container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
         
-                if (runCounter == runTimeLeft && isRunning) {
+                if (runCounter == runTimeLeft) {
                     clearInterval(running);
                     runCounter = 0;
                     setTimeout(walk, 1000);
-
                 }
             }
-
-
         
             let running = setInterval(runTimer, 1000);
         
+            //setTimeout(walk, runSec * 1000 + 1000);
             
             stop.addEventListener("click", function() {
+
                 clearInterval(running);
+            
             })
 
         
@@ -87,8 +85,6 @@ function excercise() {
     
     function walk() {
 
-        isWalking = true;
-        isRunning = false;
 
         container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
     
@@ -102,7 +98,7 @@ function excercise() {
                 clearInterval(walking);
                 walkCounter = 0;
                 numberOfRounds = numberOfRounds - 1;
-
+                console.log(numberOfRounds);
 
                 if (numberOfRounds == 0) {
                     clearInterval(excercise)
@@ -113,17 +109,15 @@ function excercise() {
         }
 
         stop.addEventListener("click", function() {
-            if (isWalking) {
-                clearInterval(walking);
-            }
-            isWalkingStopped = true;
+
+            clearInterval(walking);
+        
         })
 
-        start.addEventListener("click", function() {
-            if (isWalkingStopped && isWalking) {
-                walk();
-            }
-            isWalkingStopped = false;
+        test.addEventListener("click", function() {
+
+            walk();
+
         
         })
     
@@ -132,10 +126,6 @@ function excercise() {
     }
 
     let excercise = setInterval(run, (runSec + walkSec) * 1000 + 2000);
-                    if (numberOfRounds == 0) {
-                    clearInterval(excercise)
-                    console.log("excercise cleared!");
-                }
     
 
 }
@@ -144,18 +134,17 @@ function excercise() {
 
 
 start.addEventListener("click", function() {
-    if (isWalkingStopped) {
-        setTimeout(excercise, walkTimeLeft * 1000);
-    } else {
-        excercise();
-    }
-    stop.disabled = false;
-    start.disabled = true;
+
+    excercise();
+
 })
 
 
-stop.addEventListener("click", function() {
-    start.disabled = false;
-    stop.disabled = true;
+test.addEventListener("click", function() {
+
+    setTimeout(excercise, walkTimeLeft * 1000);
+
+
 })
+
 

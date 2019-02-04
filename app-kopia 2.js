@@ -3,7 +3,7 @@
 
 let numberOfRounds = 2;
 let runSec = 2;
-let walkSec = 2;
+let walkSec = 4;
 
 // DOM ELEMENTS
 
@@ -46,37 +46,38 @@ let isWalkingStopped = false;
 
 function excercise() {
 
+    // stop.disabled = false;
+    // start.disabled = true;
+
     stop.addEventListener("click", function() {
         clearInterval(excercise);
     })
-
     
     container.style.opacity = "1";
 
         function run() {
             isRunning = true; 
-            isWalking = false;
+
             container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
         
             runTimer = () => {
                 runCounter++;
                 container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
         
-                if (runCounter == runTimeLeft && isRunning) {
+                if (runCounter == runTimeLeft) {
                     clearInterval(running);
                     runCounter = 0;
                     setTimeout(walk, 1000);
-
                 }
             }
-
-
         
             let running = setInterval(runTimer, 1000);
         
             
             stop.addEventListener("click", function() {
-                clearInterval(running);
+                if (isRunning) {
+                    clearInterval(running);
+                }
             })
 
         
@@ -88,7 +89,6 @@ function excercise() {
     function walk() {
 
         isWalking = true;
-        isRunning = false;
 
         container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
     
@@ -102,8 +102,7 @@ function excercise() {
                 clearInterval(walking);
                 walkCounter = 0;
                 numberOfRounds = numberOfRounds - 1;
-
-
+                
                 if (numberOfRounds == 0) {
                     clearInterval(excercise)
                 }
@@ -120,7 +119,7 @@ function excercise() {
         })
 
         start.addEventListener("click", function() {
-            if (isWalkingStopped && isWalking) {
+            if (isWalkingStopped) {
                 walk();
             }
             isWalkingStopped = false;
@@ -132,10 +131,6 @@ function excercise() {
     }
 
     let excercise = setInterval(run, (runSec + walkSec) * 1000 + 2000);
-                    if (numberOfRounds == 0) {
-                    clearInterval(excercise)
-                    console.log("excercise cleared!");
-                }
     
 
 }
