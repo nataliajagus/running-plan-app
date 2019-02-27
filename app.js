@@ -1,25 +1,28 @@
+const wrapper = document.getElementById("wrapper");
+const controlss = document.getElementById("controls");
+const start = document.getElementById("start");
+const stop = document.getElementById("stop");
+const test = document.getElementById("test");
+const container = document.createElement("DIV");
+const weeks = document.getElementById('weeks-wrapper');
+const title = document.getElementById('title');
 
-// CONFIG
+const weekOne = document.getElementById("week-one");
+const weekTwo = document.getElementById("week-two");
+const weekThree = document.getElementById("week-three");
+const weekFour = document.getElementById("week-four");
+const weekFive = document.getElementById("week-five");
+const weekSix = document.getElementById("week-six");
+const weekSeven = document.getElementById("week-seven");
+const weekEight = document.getElementById("week-eight");
+const weekNine = document.getElementById("week-nine");
+const weekTen = document.getElementById("week-ten");
 
-let numberOfRounds = 2;
-let runSec = 2;
-let walkSec = 2;
+const buttons = document.querySelectorAll('button');
 
-// DOM ELEMENTS
-
-let wrapper = document.getElementById("wrapper");
-let start = document.getElementById("start");
-let stop = document.getElementById("stop");
-let test = document.getElementById("test");
-let container = document.createElement("DIV");
 container.classList.add("container");
 wrapper.appendChild(container);
 
-let isRunning = false;
-let isWalking = false;
-
-
-// FUNCTION FOR CONVERTING SECONDS TO MINUTES
 
 function convertSeconds(s) {
     var min = Math.floor(s / 60);
@@ -28,7 +31,7 @@ function convertSeconds(s) {
         return '0' + min + ':0' + sec;
     } else if (min > 10 && sec < 10) {
         return min + ':0' + sec;
-    } else if (min < 10 && sec >= 10) {    
+    } else if (min < 10 && sec >= 10) {
         return '0' + min + ':' + sec;
     } else {
         return min + ':' + sec;
@@ -36,13 +39,98 @@ function convertSeconds(s) {
 
 }
 
-// EXCERCISE FUNCTION
+
+let isRunning = false;
+let isWalking = false;
+let isWalkingStopped = false;
 
 let runCounter = 0;
-let runTimeLeft = runSec;
 let walkCounter = 0;
-let walkTimeLeft = walkSec;
-let isWalkingStopped = false;
+
+let numberOfRounds = 0;
+let runTimeLeft = 0;
+let walkTimeLeft = 0;
+
+
+[...buttons].forEach((button) => {
+    button.addEventListener('click', () => {
+        weeks.style.display = "none";
+        controls.style.display = "block";
+    });
+});
+
+weekOne.addEventListener("click", function() {
+    runTimeLeft = 120;
+    walkTimeLeft = 240;
+    numberOfRounds = 5;
+    title.innerText = "Tydzień 1";
+});
+
+weekTwo.addEventListener("click", function() {
+    runTimeLeft = 180;
+    walkTimeLeft = 180;
+    numberOfRounds = 5;
+    title.innerText = "Tydzień 2";
+});
+
+weekThree.addEventListener("click", function() {
+    numberOfRounds = 4;
+    runTimeLeft = 180;
+    walkTimeLeft = 150;
+    title.innerText = "Tydzień 3";
+});
+
+weekFour.addEventListener("click", function() {
+    numberOfRounds = 3;
+    runTimeLeft = 420;
+    walkTimeLeft = 180;
+    title.innerText = "Tydzień 4";
+});
+
+weekFive.addEventListener("click", function() {
+    numberOfRounds = 3;
+    runTimeLeft = 480;
+    walkTimeLeft = 120;
+    title.innerText = "Tydzień 5";
+});
+
+weekSix.addEventListener("click", function() {
+    numberOfRounds = 3;
+    runTimeLeft = 540;
+    walkTimeLeft = 120;
+    title.innerText = "Tydzień 6";
+});
+
+weekSeven.addEventListener("click", function() {
+    numberOfRounds = 3;
+    runTimeLeft = 540;
+    walkTimeLeft = 60;
+    title.innerText = "Tydzień 7";
+});
+
+weekEight.addEventListener("click", function() {
+    numberOfRounds = 2;
+    runTimeLeft = 780;
+    walkTimeLeft = 120;
+    title.innerText = "Tydzień 8";
+});
+
+weekNine.addEventListener("click", function() {
+    numberOfRounds = 2;
+    runTimeLeft = 840;
+    walkTimeLeft = 60;
+    title.innerText = "Tydzień 1";
+});
+
+weekTen.addEventListener("click", function() {
+    numberOfRounds = 1;
+    runTimeLeft = 1800;
+    walkTimeLeft = 0;
+    title.innerText = "Tydzień 10";
+});
+
+
+
 
 function excercise() {
 
@@ -50,54 +138,54 @@ function excercise() {
         clearInterval(excercise);
     })
 
-    
     container.style.opacity = "1";
 
-        function run() {
-            isRunning = true; 
-            isWalking = false;
+    function run() {
+        isRunning = true;
+        isWalking = false;
+        container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
+
+        runTimer = () => {
+            runCounter++;
             container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
-        
-            runTimer = () => {
-                runCounter++;
-                container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
-        
-                if (runCounter == runTimeLeft && isRunning) {
-                    clearInterval(running);
-                    runCounter = 0;
-                    setTimeout(walk, 1000);
 
-                }
-            }
-
-
-        
-            let running = setInterval(runTimer, 1000);
-        
-            
-            stop.addEventListener("click", function() {
+            if (runCounter == runTimeLeft && isRunning) {
                 clearInterval(running);
-            })
+                runCounter = 0;
+                setTimeout(walk, 1000);
 
-        
+            }
         }
-    
-        run();
 
-    
+
+
+        let running = setInterval(runTimer, 1000);
+
+
+        stop.addEventListener("click", function() {
+            clearInterval(running);
+        })
+
+
+    }
+
+    run();
+
+
+
     function walk() {
 
         isWalking = true;
         isRunning = false;
 
         container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
-    
-        
+
+
         walkTimer = () => {
-            
+
             walkCounter++;
             container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
-    
+
             if (walkCounter == walkTimeLeft) {
                 clearInterval(walking);
                 walkCounter = 0;
@@ -124,26 +212,24 @@ function excercise() {
                 walk();
             }
             isWalkingStopped = false;
-        
+
         })
-    
+
         let walking = setInterval(walkTimer, 1000);
-       
+
     }
 
-    let excercise = setInterval(run, (runSec + walkSec) * 1000 + 2000);
-                    if (numberOfRounds == 0) {
-                    clearInterval(excercise)
-                    console.log("excercise cleared!");
-                }
-    
+    let excercise = setInterval(run, (runTimeLeft + walkTimeLeft) * 1000 + 2000);
+    if (numberOfRounds == 0) {
+        clearInterval(excercise)
+    }
+
 
 }
 
-// START EXCERCISE 
-
 
 start.addEventListener("click", function() {
+
     if (isWalkingStopped) {
         setTimeout(excercise, walkTimeLeft * 1000);
     } else {
@@ -158,4 +244,3 @@ stop.addEventListener("click", function() {
     start.disabled = false;
     stop.disabled = true;
 })
-

@@ -1,0 +1,86 @@
+html {
+    font-size: 100px;
+    font-family: 'Nunito', sans-serif;
+}
+
+h2 {
+    font-size: 48px;
+    text-align: center;
+}
+
+p {
+    font-size: 20px;
+}
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    font-weight: bold;
+    opacity: 0;
+    transition: 1s ease-in all;
+}
+
+button {
+    padding: 20px 40px;
+    font-size: 15px;
+    border-radius: 40px;
+    transition: 0.1s ease-in all;
+}
+
+.start {
+    color: #1bd36f;
+    background-color: #fff;
+    border: 1px solid #1bd36f;
+}
+
+.start:hover {
+    color: #fff;
+    background-color: #1bd36f;
+    cursor: pointer;
+}
+
+.stop {
+    color: red;
+    background-color: #fff;
+    border: 1px solid red;
+}
+
+.stop:hover {
+    color: #fff;
+    background-color: red;
+    cursor: pointer;
+}
+
+.stop:disabled,
+.start:disabled {
+    cursor: default;
+    background: #cdcdcd;
+    color: #FFF;
+    border: 0;
+}
+
+.week {
+    background: #2041a4;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    padding: 20px;
+    margin: 10px;
+}
+
+.weeks {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#controls {
+    display: none;
+}
