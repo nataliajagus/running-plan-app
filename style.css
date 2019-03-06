@@ -1,6 +1,9 @@
 html {
     font-size: 100px;
-    font-family: 'Nunito', sans-serif;
+}
+
+p, h1, h2, h3, span, input, li, a {
+    font-family: 'Montserrat', sans-serif;
 }
 
 h2 {
@@ -29,20 +32,57 @@ p {
 
 button {
     padding: 20px 40px;
-    font-size: 15px;
-    border-radius: 40px;
     transition: 0.1s ease-in all;
 }
 
+.main-header {
+    background-image: linear-gradient(#15A1F8, #065B9A);
+    width: 100vw;
+    border-radius: 0px 0px 40% 40%;
+    padding: 50px 0px 200px 0px;
+    display: flex;
+    min-height: 200px;
+    flex-direction: column;
+}
+
+.ten-week {
+    color: #097AC1;
+    font-weight: 700;
+    font-size: 172px;
+}
+
+.title {
+    color: #fff;
+    display:flex;
+    flex-direction: column;
+    text-align:left;
+    font-size: 35px;
+    margin-top:-20px;
+    align-self: center;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.time-left {
+    color: #fff;
+    text-align: center;
+    font-weight: 100;
+    display: none;
+}
+
+.start, .stop {
+    border-radius: 10px;
+}
+
 .start {
-    color: #1bd36f;
+    color: #096db2;
     background-color: #fff;
-    border: 1px solid #1bd36f;
+    border: 1px solid #096db2;
 }
 
 .start:hover {
     color: #fff;
-    background-color: #1bd36f;
+    background-color: #096db2;
     cursor: pointer;
 }
 
@@ -67,11 +107,26 @@ button {
 }
 
 .week {
-    background: #2041a4;
-    color: white;
-    font-family: 'Nunito', sans-serif;
+    background: #fff;
+    color: #C6C6C6;
     padding: 20px;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    font-size: 20px;
+    font-weight: 300;
+    border: none;
+    box-shadow: 1px 2px 8px 0px #dedede;
+    min-width: 140px;
+    align-items: center;
+}
+
+.week-number {
+    font-weight: 700;
+    font-size: 60px;
+    color: #0E4D8B;
+    align-self: center;
 }
 
 .weeks {
@@ -79,8 +134,43 @@ button {
     flex-flow: row;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: -110px;
 }
 
 #controls {
     display: none;
+}
+
+.container {
+    padding: 50px;
+    background: #fff;
+    flex-shrink: 0;
+    flex-direction: column;
+    display: flex;
+    width: 40%;
+    align-self: center;
+    border-radius: 18px;
+    border: none;
+    box-shadow: 1px 2px 8px 0px rgba(0,0,0,0.18);
+    margin-top: 30px;
+}
+
+
+.time, .mode {
+    color: #1F5AAC;
+}
+
+.time {
+    font-size: 103px;
+}
+
+.mode {
+    font-size: 50px;
+    font-weight: 300;
+}
+
+@media (max-width: 620px) {
+    .time {
+        font-size: 70px;
+    }
 }

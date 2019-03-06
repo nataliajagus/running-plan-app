@@ -3,9 +3,12 @@ const controlss = document.getElementById("controls");
 const start = document.getElementById("start");
 const stop = document.getElementById("stop");
 const test = document.getElementById("test");
-const container = document.createElement("DIV");
+
 const weeks = document.getElementById('weeks-wrapper');
 const title = document.getElementById('title');
+const image = document.getElementById('jogging-img');
+const totalTimeContainer = document.getElementById('time-left');
+const mainHeader = document.getElementById('main-header');
 
 const weekOne = document.getElementById("week-one");
 const weekTwo = document.getElementById("week-two");
@@ -20,8 +23,16 @@ const weekTen = document.getElementById("week-ten");
 
 const buttons = document.querySelectorAll('button');
 
+const container = document.createElement("DIV");
+const time = document.createElement("SPAN");
+const mode = document.createElement("SPAN");
+
 container.classList.add("container");
-wrapper.appendChild(container);
+time.classList.add("time");
+mode.classList.add("mode");
+mainHeader.appendChild(container);
+container.appendChild(time);
+container.appendChild(mode);
 
 
 function convertSeconds(s) {
@@ -55,6 +66,9 @@ let walkTimeLeft = 0;
 [...buttons].forEach((button) => {
     button.addEventListener('click', () => {
         weeks.style.display = "none";
+        image.style.display = "none";
+        totalTimeContainer.style.display = "block";
+        title.style.fontSize = "21px";
         controls.style.display = "block";
     });
 });
@@ -143,11 +157,12 @@ function excercise() {
     function run() {
         isRunning = true;
         isWalking = false;
-        container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
+        //time.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
 
         runTimer = () => {
             runCounter++;
-            container.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
+            time.innerText = convertSeconds(runTimeLeft - runCounter);
+            mode.innerText = "bieg";
 
             if (runCounter == runTimeLeft && isRunning) {
                 clearInterval(running);
@@ -178,13 +193,14 @@ function excercise() {
         isWalking = true;
         isRunning = false;
 
-        container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
+       // time.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
 
 
         walkTimer = () => {
 
             walkCounter++;
-            container.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
+            time.innerText = convertSeconds(walkTimeLeft - walkCounter);
+            mode.innerText = "marsz";
 
             if (walkCounter == walkTimeLeft) {
                 clearInterval(walking);
