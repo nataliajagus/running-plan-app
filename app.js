@@ -9,6 +9,7 @@ const title = document.getElementById('title');
 const image = document.getElementById('jogging-img');
 const totalTimeContainer = document.getElementById('time-left');
 const mainHeader = document.getElementById('main-header');
+const timeTotalContainer = document.getElementById('time-total');
 
 const weekOne = document.getElementById("week-one");
 const weekTwo = document.getElementById("week-two");
@@ -57,10 +58,12 @@ let isWalkingStopped = false;
 
 let runCounter = 0;
 let walkCounter = 0;
+let totalTime = 0;
 
 let numberOfRounds = 0;
 let runTimeLeft = 0;
 let walkTimeLeft = 0;
+let totalTimeLeft = 1800;
 
 
 [...buttons].forEach((button) => {
@@ -157,12 +160,12 @@ function excercise() {
     function run() {
         isRunning = true;
         isWalking = false;
-        //time.innerText = 'Bieg: ' + convertSeconds(runTimeLeft - runCounter);
+        time.innerText = convertSeconds(runTimeLeft - runCounter);
+        mode.innerText = "bieg";
 
         runTimer = () => {
             runCounter++;
             time.innerText = convertSeconds(runTimeLeft - runCounter);
-            mode.innerText = "bieg";
 
             if (runCounter == runTimeLeft && isRunning) {
                 clearInterval(running);
@@ -193,14 +196,14 @@ function excercise() {
         isWalking = true;
         isRunning = false;
 
-       // time.innerText = 'Marsz: ' + convertSeconds(walkTimeLeft - walkCounter);
-
+        time.innerText = convertSeconds(walkTimeLeft - walkCounter);
+        mode.innerText = "marsz";
 
         walkTimer = () => {
 
             walkCounter++;
             time.innerText = convertSeconds(walkTimeLeft - walkCounter);
-            mode.innerText = "marsz";
+
 
             if (walkCounter == walkTimeLeft) {
                 clearInterval(walking);
@@ -239,6 +242,26 @@ function excercise() {
     if (numberOfRounds == 0) {
         clearInterval(excercise)
     }
+
+
+    totalTimeCount = () => {
+
+        totalTime++;
+        timeTotalContainer.innerText = convertSeconds(totalTimeLeft - totalTime);
+
+
+        if (totalTime == totalTimeLeft) {
+            clearInterval(timeCount);
+            totalTime = 0;
+        }
+
+    }
+
+    let timeCount = setInterval(totalTimeCount, 1000);
+
+    stop.addEventListener("click", function() {
+        clearInterval(timeCount);
+    })
 
 
 }
