@@ -80,70 +80,70 @@ weekOne.addEventListener("click", function() {
     runTimeLeft = 120;
     walkTimeLeft = 240;
     numberOfRounds = 5;
-    title.innerText = "Tydzień 1";
+    title.innerText = "Week 1";
 });
 
 weekTwo.addEventListener("click", function() {
     runTimeLeft = 180;
     walkTimeLeft = 180;
     numberOfRounds = 5;
-    title.innerText = "Tydzień 2";
+    title.innerText = "Week 2";
 });
 
 weekThree.addEventListener("click", function() {
     numberOfRounds = 4;
     runTimeLeft = 180;
     walkTimeLeft = 150;
-    title.innerText = "Tydzień 3";
+    title.innerText = "Week 3";
 });
 
 weekFour.addEventListener("click", function() {
     numberOfRounds = 3;
     runTimeLeft = 420;
     walkTimeLeft = 180;
-    title.innerText = "Tydzień 4";
+    title.innerText = "Week 4";
 });
 
 weekFive.addEventListener("click", function() {
     numberOfRounds = 3;
     runTimeLeft = 480;
     walkTimeLeft = 120;
-    title.innerText = "Tydzień 5";
+    title.innerText = "Week 5";
 });
 
 weekSix.addEventListener("click", function() {
     numberOfRounds = 3;
     runTimeLeft = 540;
     walkTimeLeft = 120;
-    title.innerText = "Tydzień 6";
+    title.innerText = "Week 6";
 });
 
 weekSeven.addEventListener("click", function() {
     numberOfRounds = 3;
     runTimeLeft = 540;
     walkTimeLeft = 60;
-    title.innerText = "Tydzień 7";
+    title.innerText = "Week 7";
 });
 
 weekEight.addEventListener("click", function() {
     numberOfRounds = 2;
     runTimeLeft = 780;
     walkTimeLeft = 120;
-    title.innerText = "Tydzień 8";
+    title.innerText = "Week 8";
 });
 
 weekNine.addEventListener("click", function() {
     numberOfRounds = 2;
     runTimeLeft = 840;
     walkTimeLeft = 60;
-    title.innerText = "Tydzień 1";
+    title.innerText = "Week 1";
 });
 
 weekTen.addEventListener("click", function() {
     numberOfRounds = 1;
     runTimeLeft = 1800;
     walkTimeLeft = 0;
-    title.innerText = "Tydzień 10";
+    title.innerText = "Week 10";
 });
 
 
@@ -161,7 +161,7 @@ function excercise() {
         isRunning = true;
         isWalking = false;
         time.innerText = convertSeconds(runTimeLeft - runCounter);
-        mode.innerText = "bieg";
+        mode.innerText = "run";
 
         runTimer = () => {
             runCounter++;
@@ -197,7 +197,7 @@ function excercise() {
         isRunning = false;
 
         time.innerText = convertSeconds(walkTimeLeft - walkCounter);
-        mode.innerText = "marsz";
+        mode.innerText = "walk";
 
         walkTimer = () => {
 
