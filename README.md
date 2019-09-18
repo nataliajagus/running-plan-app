@@ -1,6 +1,6 @@
-# Runner's 10-Week Training Plan JS App
+# 10 weeks jogging plan app
 
-JS app for Runner's 10 Week Training Plan.
+JS app for 10 weeks jogging plan app 
 
 Week | Run | Walk | Repeat
 --- | --- | --- | ---
